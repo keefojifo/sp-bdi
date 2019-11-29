@@ -5,8 +5,75 @@
 
 <mapper namespace="com.sp.bdi.dao.UserInfoMapper">
 	<select id="selectUserInfoList" resultType="user">
-	select * from user_info2
+		select * from user_info2
+		<where>
+			<if test="search!=null">
+				<foreach collection="search" item="col" separator="or">
+					${col} like '%' || #{searchStr} || '%'
+				</foreach>
+			</if>
+		</where>
 	</select>
-   
+	
+	<select id="selectUserInfo" resultType="user">
+		select * from user_info2
+		<where>
+			<if test="uiId!=null">
+			and ui_id=#{uiId}
+			</if>
+			<if test="uiPwd!=null">
+			and ui_Pwd=#{uiPwd}
+			</if>
+			<if test="uiNum!=null">
+			and ui_Num=#{uiNum}
+			</if>
+			
+		</where>
+		
+	</select>
+	
+	
+	<select id="viewUserInfoList" resultType="user">
+		select * from user_info2 
+		<where>
+		<if test="uiNum!=null">
+		ui_num=#{uiNum}
+		</if>
+		</where>
+	
+	
+	</select>
+	
+	
+	
+	
 
+	<insert id="insertUserInfo" parameterType="user">
+		insert into user_info2
+		(ui_num,ui_id,ui_pwd,ui_name,credat,cretim,moddat,modtim)
+		 values (seq_ui_num.nextval,#{uiId},#{uiPwd},#{uiName},
+		to_char(sysdate,'YYYYMMDD'), to_char(sysdate,'HH24MISS'),
+		to_char(sysdate,'YYYYMMDD'), to_char(sysdate,'HH24MISS')
+		)
+	</insert>
+
+	<update id="updateUserInfo" parameterType="user">
+		update user_info2
+		<set>
+			<if test="uiPwd">
+				,ui_pwd=#{uiPwd}
+			</if>
+			<if test="uiId!=null">
+				,ui_id=#{uiId}
+			</if>
+			<if test="uiName">
+				,ui_name=#{uiName}
+			</if>
+		</set>
+		where ui_num=#{uiNum}
+	</update>
+	
+	<delete id="deleteUserInfo" parameterType="user">
+		delete from user_info2 where ui_num=#{uiNum}
+	</delete>
 </mapper>

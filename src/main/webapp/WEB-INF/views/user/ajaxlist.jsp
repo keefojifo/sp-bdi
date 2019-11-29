@@ -9,6 +9,16 @@
 
 </head>
 <body>
+	<div class="container">
+		<h4>난 유저 리스트</h4>
+		<div class="search">
+			<label for="uiName"> 이름</label> <input type="checkbox" id="uiName" value="ui_name" name="search">
+			<label for="uiId"> ID</label> <input type="checkbox" id="uiId" value="ui_id" name="search">
+			<label for="uiNum"> 번호</label> <input type="checkbox" id="uiNum" value="ui_num" name="search">
+			<input type="text" id="searchStr"><button>검색</button>
+			
+		</div>
+	</div>
 	<table class="table">
 		<thead>
 			<tr>
@@ -26,11 +36,15 @@
 		</thead>
 		<tbody id="tBody">
 		</tbody>
+		
 	</table>
+	<a href ="/views/user/ajaxinsert"><button >회원가입</button></a>
+	
+	
 	<script>
-		window.onload = function() {
+	function getUserList(param){
 			var xhr = new XMLHttpRequest();
-			xhr.open('GET', '/user/list/ajax');
+			xhr.open('GET', '/user/list/ajax?'+param);
 			xhr.onreadystatechange = function() {
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
@@ -39,7 +53,7 @@
 						var html = '';
 						for (var i = 0; i < list.length; i++) {
 							html += '<tr>';
-							html += '<td>' + list[i].uiNum + '</td>';
+							html += '<td><a href="/views/user/ajaxview?uiNum='+list[i].uiNum+'">' + list[i].uiNum + '</a></td>';
 							html += '<td>' + list[i].uiName + '</td>';
 							html += '<td>' + list[i].uiId + '</td>';
 							html += '<td>' + list[i].uiPwd + '</td>';
@@ -56,6 +70,29 @@
 				}
 			}
 			xhr.send();
+			}
+			window.onload = function() {
+			getUserList('');
+			var btn =document.querySelector('button');
+			btn.onclick=function(){
+				
+				var checks=document.querySelectorAll('[name=search]:checked');
+				if(checks.length==0){
+					alert('검색대상을 1개라도 선택해주세요!');
+					return;
+				}
+				var searchStr =document.querySelector('#searchStr');
+				if(searchStr.value.trim().length<1){
+					alert('검색어를 입력해주세요');
+					return;
+				}
+				var search='';
+				for(var i=0;i<checks.length;i++){
+					search +='search='+checks[i].value+'&';
+				}
+				search +='searchStr='+searchStr.value;
+				getUserList(search);
+			}
 		}
 	</script>
 </body>

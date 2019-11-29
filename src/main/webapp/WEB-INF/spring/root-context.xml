@@ -10,6 +10,7 @@
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="bdi"></property>
 		<property name="password" value="12345678"></property>
+		<property name="defaultAutoCommit" value="false"></property>
 	</bean>
 	
 	<bean id="ssfactorybean" class="org.mybatis.spring.SqlSessionFactoryBean">

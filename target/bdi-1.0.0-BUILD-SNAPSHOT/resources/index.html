@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding: 0;}
+            #wrap{  font-size:40 px; color: #fff ; text-transform:uppercase; margin: 0 auto; width: 1000px; height: 1000px; background: #999; }
+            #header {padding:10px ; width: 980px;height: 100px;background: #888;}
+            #side-l {box-sizing: border-box; border: 1px #fff solid;  padding:10px ; float:left; width: 150px;height: 800px;background: #777;}
+            #content {box-sizing: border-box; border: 1px #fff solid; padding:10px ; float:left;width: 700px;height: 800px;background: #666;}
+       
+            #side-r {box-sizing: border-box; border: 1px #fff solid;  padding:10px ; float:left; width: 150px;height: 800px;background: #555;}
+            #footer{ padding:10px ; clear : both; width: 980px; height: 100px;background: #444;}
+
+            #content>span#left {float: left}
+            #content>span#right {float: right}
+    
+    </style>
+</head>
+<body>
+
+    <div id="wrap">
+        <div id="header">header</div>
+        <div id="side-l">side-l</div>
+        <div id="content">content</div>
+            <span id="left">left-content</span>
+            <span id="right">right-content</span>
+        <div id="side-r">side-r</div>
+        <div id="footer">footer</div>
+    </div>
+</body>
+</html>
+!
